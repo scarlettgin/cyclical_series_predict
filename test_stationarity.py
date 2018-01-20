@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 
 
+# 时间序列图
 def draw_ts(timeseries):
-    f = plt.figure(facecolor='white')
-    timeseries.plot(color='blue')
+    timeseries.plot()
     plt.show()
 
 
@@ -31,6 +31,7 @@ def draw_trend(timeseries, size):
     plt.show()
 
 
+# 语义描述
 def testStationarity(ts):
     dftest = adfuller(ts)
     # 对上述函数求得的值进行语义描述
