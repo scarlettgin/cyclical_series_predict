@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 '''
-流量预测
+周期性时间序列预测
 '''
 import os
 import numpy as np
@@ -42,13 +42,11 @@ class ModelDecomp(object):
             start = forbid_index[i]
             while forbid_index[i+n] == start + timedelta(minutes=n):
                 n += 1
-
             i += n - 1
 
             end = forbid_index[i]
             value = np.linspace(ts[start - timedelta(minutes=1)], ts[end + timedelta(minutes=1)], n)
             ts[start: end] = value
-
             i += 1
 
         return ts
@@ -73,7 +71,6 @@ class ModelDecomp(object):
     def trend_model(self, order):
         '''
         为分解出来的趋势数据单独建模
-        :return:
         '''
         self.trend.dropna(inplace=True)
         self.trend_model = ARIMA(self.trend, order).fit(disp=-1, method='css')
@@ -83,7 +80,6 @@ class ModelDecomp(object):
     def add_season(self):
         '''
         为预测出的趋势数据添加周期数据和残差数据
-        :return:
         '''
         self.train_season = self.seasonal
         values = []
